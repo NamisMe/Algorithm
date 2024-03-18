@@ -47,3 +47,12 @@ def solution(prices):
             stack.pop()
         stack.append((prices[i], i))
     return times
+
+# def solution5(prices):
+#     times = [0] * len(prices)
+#     stack = []
+#     for i in range(len(prices)):
+#         for s, idx in stack:
+#             times[idx] += 1
+#     for price in prices:
+        
