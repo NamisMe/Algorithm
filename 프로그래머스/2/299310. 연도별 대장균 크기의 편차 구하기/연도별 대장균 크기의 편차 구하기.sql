@@ -1,0 +1,23 @@
+-- 코드를 작성해주세요
+WITH YEARLY_MAX_SIZE AS (
+    SELECT 
+        YEAR(DIFFERENTIATION_DATE) AS YEAR,
+        MAX(SIZE_OF_COLONY) AS MAX_SIZE -- 가장 큰 대장균의 사이즈
+    FROM
+        ECOLI_DATA
+    GROUP BY
+        YEAR(DIFFERENTIATION_DATE) -- 연도별로 묶기
+)
+SELECT
+    YEAR(E.DIFFERENTIATION_DATE) AS YEAR, -- 연도
+    (Y.MAX_SIZE - E.SIZE_OF_COLONY) AS YEAR_DEV, -- 편차
+    E.ID
+FROM
+    ECOLI_DATA E
+JOIN
+    YEARLY_MAX_SIZE Y
+ON
+    YEAR(DIFFERENTIATION_DATE) = Y.YEAR
+ORDER BY
+    YEAR ASC, -- 연도에 대해 오름차순 정렬
+    YEAR_DEV ASC; -- 대장균 크기 편차에 대해 오름차순 정렬
